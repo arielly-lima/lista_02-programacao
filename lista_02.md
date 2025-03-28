@@ -222,7 +222,7 @@ ______
 
 Escolha a opção que responde corretamente:
 
-?X) Simular física avançada, incluindo corpos rígidos, colisões complexas e interação entre objetos com gravidade e forças.
+X) Simular física avançada, incluindo corpos rígidos, colisões complexas e interação entre objetos com gravidade e forças.
 
 B) Gerenciar eventos de entrada do usuário, como cliques e toques na tela, permitindo movimentação de personagens.
 
@@ -245,8 +245,29 @@ Pedidos entre R$50,00 e R$199,99 (inclusive) → "Frete com custo adicional!"
 Pedidos de R$200,00 ou mais → "Frete grátis!"
 ```
 Implemente um pseudocódigo que receba o valor total da compra e exiba a classificação correta do frete para o cliente.
-______
 
+```javascript
+//Resposta
+
+let totalPedido = 200 //Variável que guarda o valor total do pedido
+
+function frete(){ //Função que determina o frete de acordo com o total do pedido
+    if (totalPedido < 50){ //Condição se o total do pedido for menor que 50
+        console.log("Frete não disponível!");
+    }
+    else if (totalPedido >=50 || totalPedido <= 199){ //Condição se o total do pedido estiver entre 
+        console.log("Frete com custo adicional!");
+    }
+    else { //Se não atender nehum dos requisitos acima, ou seja, maior que 200, o frete é gratis
+        console.log("Frete grátis!"); 
+    }
+}
+
+frete(); //Chama a função que mostra o resultado do frete depois de passar pelas condições
+//Saída: Frete com custo adicional! 
+´´´
+______
+```
 **8)** Considere a implementação da classe base Veiculo em um sistema de modelagem de veículos. Sua tarefa é implementar, utilizando pseudocódigo, as classes derivadas Carro e Moto, que herdam da classe Veiculo, adicionando atributos específicos e métodos para calcular o consumo de combustível de um carro e de uma moto, respectivamente.
 
 ```
@@ -260,9 +281,78 @@ Método Construtor(modelo, ano):
 Define os valores dos atributos modelo e ano com os valores passados como parâmetro.
 Método CalcularConsumo():
 ```
-Implementação genérica para cálculo de consumo, a ser sobrescrita pelas subclasses.
+Implementação 5genérica para cálculo de consumo, a ser sobrescrita pelas subclasses.
 Agora, implemente as classes Carro e Moto, garantindo que ambas herdem de Veiculo e possuam métodos específicos para calcular o consumo de combustível com base na quilometragem e eficiência do veículo.
+
+```javascript
+//Resposta:
+class Veiculo { //Cria a classe Pai: veículo
+    constructor(modelo, ano){ //Atributos que serão passados aos objetos da classe
+        this.modelo = modelo; //Parâmetros do objeto
+        this.ano = ano; //Parâmetros do objeto
+    }
+
+    caracteristicas(){ //método que mostra as características dos objetos que serão criados
+        console.log(`Tipo do veículo: ${this.modelo}, Ano: ${this.ano}`); //Mostra as informações no console
+    }
+
+    calcularConsumo(distancia, eficiencia){ //Método usado para calcular o consumo do veículo
+        let consumo = distancia/eficiencia; //Variável que guarda o cálculo do consumo (distância/eficiência)
+        console.log(`Consumo: ${consumo} L.`); //Saída no console, mostrando o consumo
+        return consumo; //retorna consumo
+    }
+
+}
+class Carro extends Veiculo { //Classe carro, filha da classe Veículo
+    constructor(modelo, ano, eficiencia){ //Atributos que serão passados aos objetos das classes
+        super(modelo, ano) //Passa os parâmetros da classe pai (Veiculo) para a classe carro
+        this.eficiencia = eficiencia //Parâmetro eficiência:distância (km) percorrida para cada litro de gasolina
+    }
+
+    caracteristicas(){ //Método características que foi herdado da classe pai
+        console.log(`Tipo do carro: ${this.modelo}, Ano: ${this.ano}`);
+    }
+
+      calcularConsumo(distancia) { //Método calcular consumo herdado da classe pai
+    return super.calcularConsumo(distancia, this.eficiencia); //Chama o método da classe pai (usando o super) e passa os argumentos (distancia e this.eficiencia)
+}
+}
+
+let carro = new Carro("Ford", 2005, 10) //cria um novo objeto (carro) com a marca, ano e eficiência próprias
+carro.caracteristicas(); //mostra as características na tala
+carro.calcularConsumo(60); //calcula o consumo do carro, passando a distância = 60km
+
+class Moto extends Veiculo { //Classe Moto, filha da classe Veículo
+    constructor(modelo, ano, eficiencia){ //Atributos: modelos, ano e e ficiencia, são passados para a classe Moto
+        super(modelo, ano) //Passa os parâmetros da classe pai (Veiculo) para a classe Moto
+        this.eficiencia = eficiencia  //Parâmetro eficiência:distância (km) percorrida para cada litro de gasolina
+      
+    }
+
+    caracteristicas(){  //Método características que foi herdado da classe pai
+        console.log(`Tipo da moto: ${this.modelo}, Ano: ${this.ano}`);
+    }
+
+    calcularConsumo(distancia) { //Método calcular consumo herdado da classe pai
+    return super.calcularConsumo(distancia, this.eficiencia); //Chama o método da classe pai (usando o super) e passa os argumentos (distancia e this.eficiencia)
+}
+}
+
+let moto = new Moto("Bis", 2020, 30) //Cria novo objeto (moto), que recebe a marca, o ano e a eficiência
+moto.caracteristicas(); //mostra as características da moto
+moto.calcularConsumo(90); //calcula o consumo da moto em litros, ao percorrer 90km
+
+/* Saída:
+Tipo do carro: Ford, Ano: 2005
+Consumo: 6 L.
+Tipo da moto: Bis, Ano: 2020
+Consumo: 3 L.
+ */
+
+´´´
 ______
+
+```
 
 **9)** Você é um cientista da NASA e está ajudando no desenvolvimento de um sistema de pouso para sondas espaciais em Marte. Seu objetivo é calcular o tempo necessário para que a sonda reduza sua velocidade até um nível seguro para pouso, considerando uma velocidade inicial de entrada na atmosfera marciana e uma taxa de desaceleração constante causada pelo atrito atmosférico e retrofoguetes.
 
@@ -275,6 +365,29 @@ Considere a fórumla de atualização velocidade:
     velocidade = velocidadeInicial - desaceleracao * tempo
 ```
 Seu programa deve determinar quanto tempo será necessário para que a sonda atinja uma velocidade segura de pouso, sem ultrapassar os limites estabelecidos.
+
+```javascript
+function tempoPouso(velocidadeInicial, velocidadeSegura, desaceleracao, tempoMaximo) { //função que calcula o tempo de pouso
+    let tempo = 0; //tempo inicia em 0
+    let velocidade = velocidadeInicial; //velocidade é passada como velocidadeInicial
+
+    //enquanto a velocidade formaior que a velocidade segura, e o tempo for menor que o tempo máximo, a função ocorre
+    while (velocidade > velocidadeSegura && tempo < tempoMaximo) { 
+        velocidade -= desaceleracao; //desaceleração é subtraida da velocidade
+        tempo++; //tempo é aumentado em 1s
+    }
+
+    if (velocidade <= velocidadeSegura) { //se a velocidade for menor ou igual que a velocidade segura, o pouso será realizado
+        console.log(`Pouso bem sucedido em ${tempo} segundos.`);
+    } else { // se não, o pouso falha
+        console.log("Pouso não realizado, pois o tempo máximo foi atingido antes de alcançar a velocidade segura.");
+    }
+}
+//testando a função, com os parâmetros
+calcularTempoPouso(5000, 5, 50, 120);´
+
+//Saída: Pouso bem sucedido em 100 segundos.
+```
 ______
 
 **10)** Em um sistema de análise financeira, as operações de investimento de uma empresa podem ser representadas por matrizes, onde cada linha representa um tipo de investimento e cada coluna representa um período de tempo.
@@ -283,7 +396,7 @@ A seguir, é fornecida a implementação da função SomarMatrizesInvestimento(m
 
 ```
 Função SomarMatrizesInvestimento(matrizA, matrizB):  
-    # Verifica se as matrizes têm o mesmo número de linhas e colunas  
+    # Verifica se as matrizes têm o mesmo número de linhas e colunas
     Se tamanho(matrizA) ≠ tamanho(matrizB) então:  
         Retornar "As matrizes não podem ser somadas. Elas têm dimensões diferentes."  
     Senão:  
@@ -304,6 +417,54 @@ investimentosAno2 <- [[1200, 1800], [1300, 2700]]
 
 totalInvestimentos <- SomarMatrizesInvestimento(investimentosAno1, investimentosAno2)  
 Escrever("Total de investimentos acumulados:")  
-ImprimirMatriz(totalInvestimentos)  
+ImprimirMatriz(totalInvestimentos) 
 ```
 Agora, implemente a função MultiplicarMatrizesInvestimento(matrizA, matrizB), que multiplica as duas matrizes, simulando o efeito de diferentes fatores de crescimento e impacto financeiro nos investimentos ao longo do tempo.
+
+```javascript
+
+function multiplicarMatrizes(matrizA, matrizB) {
+    // Verifica se as matrizes podem ser multiplicadas (colunas de A == linhas de B)
+    if (matrizA[0].length !== matrizB.length) {
+        return "As matrizes não podem ser multiplicadas, pois o número de linhas é diferente do de colunas.";
+    }
+
+    let linhasA = matrizA.length; //linhas da matriz A
+    let colunasA = matrizA[0].length; //colunas da matriz a
+    let colunasB = matrizB[0].length; //colunas da matriz B
+
+    //criar a matriz resultado com dimensões (linhasA x colunasB)
+    let matrizResultado = Array.from({ length: linhasA }, () => Array(colunasB).fill(0)); //cria um novo array a partir da multiplicação de linhasA por colunasB e preenche com 0
+
+    //loop para multiplicação de matrizes
+    for (let i = 0; i < linhasA; i++) { //passa pelas linhas de A
+        for (let j = 0; j < colunasB; j++) { //passa pelas colunasB
+            for (let k = 0; k < colunasA; k++) {//passa pelas colunasA
+                matrizResultado[i][j] += matrizA[i][k] * matrizB[k][j]; //mostra a matriz resultado (linha*coluna)
+            }
+        }
+    }
+
+    return matrizResultado;//mostra a matriz resultado
+}
+
+//teste
+let investimentos = [//matriz investimento
+    [1000, 2000], 
+    [1500, 2500]
+];
+
+let fatoresCrescimento = [//matriz fatores de crescimento
+    [1.1, 0.9], 
+    [1.2, 1.05]
+];
+
+let resultadoInvestimentos = multiplicarMatrizes(investimentos, fatoresCrescimento); //variável que guarda o resultado da multiplicação, feita através da função multiplicarMatrizes()
+
+console.log("Resultado dos investimentos após crescimento:");
+console.log(resultadoInvestimentos); //mostra o resultado da variável multiplicar matrizes
+
+//Saída: 
+Resultado dos investimentos após crescimento:
+[ [ 3500, 3000 ], [ 4650, 3975 ] ]
+```
